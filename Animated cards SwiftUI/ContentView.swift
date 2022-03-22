@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     
     @GestureState var dragState = DragState.inactive
-    
+
     var body: some View {
         
         // Инициализируем жест и обновляем dragState
@@ -21,19 +21,26 @@ struct ContentView: View {
         
         ZStack {
             Card(title: "Third card")
+                // поворот
+                .rotation3DEffect(Angle(degrees: dragState.isActive ? 0 : 30), axis: (x: 10.0, y: 10.0, z: 10.0))
                 .blendMode(.hardLight)
-                .padding(64)
-                .padding(.bottom, 64)
+                .padding(dragState.isActive ?  32 : 64)
+                .padding(.bottom, dragState.isActive ? 90 : 100)
+                .animation(.spring())
             Card(title: "Second card")
+                .rotation3DEffect(Angle(degrees: dragState.isActive ? 0 : 30), axis: (x: 10.0, y: 10.0, z: 10.0))
                 .blendMode(.hardLight)
-                .padding(32)
-                .padding(.bottom, 32)
+                .padding(dragState.isActive ?  16 : 32)
+                .padding(.bottom, dragState.isActive ? 0 : 32)
+                .animation(.spring())
             MainCard(title: "Main card")
+                .rotationEffect(Angle(degrees: Double(dragState.translation.width / 10)))
                 .offset(
                       x: dragState.translation.width,
                       y: dragState.translation.height
                    )
                 .gesture(dragGester)
+                .animation(.spring())
         }
     }
 }
