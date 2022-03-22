@@ -9,8 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        ZStack {
+            Card(title: "Third card")
+                .blendMode(.hardLight)
+                .padding(64)
+                .padding(.bottom, 64)
+            Card(title: "Second card")
+                .blendMode(.hardLight)
+                .padding(32)
+                .padding(.bottom, 32)
+            MainCard(title: "Main card")
+        }
     }
 }
 
